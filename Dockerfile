@@ -1,8 +1,20 @@
 FROM jkirkby91/ubuntusrvbase
 MAINTAINER James Kirkby <jkirkby91@gmail.com>
 
+# Install some packages
+RUN apt-get update && \
+apt-get upgrade -y && \
+apt-get install -y sqlite3 libsqlite3-dev supervisor apache2 libapache2-mod-php5 php5 php5-mysql php5-curl php5-gd php5-intl php5-mcrypt php5-tidy php5-xmlrpc php5-xsl php5-xdebug php-pear && \
+apt-get remove --purge -y software-properties-common && \
+apt-get autoremove -y && \
+apt-get clean && \
+apt-get autoclean && \
+echo -n > /var/lib/apt/extended_states && \
+rm -rf /var/lib/apt/lists/* && \
+rm -rf /usr/share/man/?? && \
+rm -rf /usr/share/man/??_*
+
 # Compile node from source
-# Put this at the top so we can modify subsequent layers without having to compile node again as its long
 RUN \
   cd /tmp && \
   wget http://nodejs.org/dist/node-latest.tar.gz && \
@@ -16,19 +28,6 @@ RUN \
   rm -rf /tmp/node-v* && \
   npm install -g npm && \
   printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
-
-# Install some packages
-RUN apt-get update && \
-apt-get upgrade -y && \
-apt-get install -y sqlite3 libsqlite3-dev supervisor apache2 libapache2-mod-php5 php5-fpm php5-mysql php5-curl php5-gd php5-intl php5-mcrypt php5-tidy php5-xmlrpc php5-xsl php5-xdebug php-pear && \
-apt-get remove --purge -y software-properties-common && \
-apt-get autoremove -y && \
-apt-get clean && \
-apt-get autoclean && \
-echo -n > /var/lib/apt/extended_states && \
-rm -rf /var/lib/apt/lists/* && \
-rm -rf /usr/share/man/?? && \
-rm -rf /usr/share/man/??_*
 
 # Link nodejs env
 RUN ln -s /usr/bin/nodejs /usr/bin/node
