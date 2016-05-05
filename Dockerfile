@@ -1,6 +1,9 @@
 FROM jkirkby91/ubuntusrvbase
 MAINTAINER James Kirkby <jkirkby91@gmail.com>
 
+# enable the multiverse
+RUN sudo sed -i "/^# deb.*multiverse/ s/^# //" /etc/apt/sources.list
+
 # Install some packages
 RUN apt-get update && \
 apt-get upgrade -y && \
