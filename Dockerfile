@@ -4,7 +4,7 @@ MAINTAINER James Kirkby <jkirkby91@gmail.com>
 # Install some packages
 RUN apt-get update && \
 apt-get upgrade -y && \
-apt-get install -y sqlite3 libsqlite3-dev supervisor apache2 libapache2-mod-php5 php5-fpm php5-cli php5-mysql php5-curl php5-gd php5-intl php5-mcrypt php5-tidy php5-xmlrpc php5-xsl php5-xdebug php-pear && \
+apt-get install -y sqlite3 libsqlite3-dev supervisor apache2 libapache2-mod-fastcg5 php5-fpm php5-cli php5-mysql php5-curl php5-gd php5-intl php5-mcrypt php5-tidy php5-xmlrpc php5-xsl php5-xdebug php-pear && \
 apt-get remove --purge -y software-properties-common && \
 apt-get autoremove -y && \
 apt-get clean && \
