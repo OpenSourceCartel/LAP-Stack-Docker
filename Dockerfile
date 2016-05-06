@@ -1,7 +1,7 @@
 FROM jkirkby91/ubuntusrvbase
 MAINTAINER James Kirkby <jkirkby91@gmail.com>
 
-# enable the multiverse
+# enable the multiverse (at least in the multiverse you're more likely not to be sat here doing this ;-)
 RUN sudo apt-add-repository multiverse
 
 # Install some packages
