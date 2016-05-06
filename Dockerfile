@@ -71,5 +71,14 @@ sed -i -e "s/listen = /var/run/php5-fpm.sock/listen = 127.0.0.1:9000/g" /etc/php
 RUN sed -i -e "s/;listen.mode = 0660/listen.mode = 0750/g" /etc/php5/fpm/pool.d/www.conf && \
 find /etc/php5/cli/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
 
+# disable default site
+RUN a2dissite 000-default
+
+# Enable mod_rewrite
+RUN a2enmod rewrite
+
+# Enable the fastCGI proxy for fpm
+RUN a2enmod proxy_fcgi
+
 # Define entry point
 CMD ["/bin/bash"]
