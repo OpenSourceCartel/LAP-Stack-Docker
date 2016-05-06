@@ -7,7 +7,7 @@ RUN sudo apt-add-repository multiverse
 # Install some packages
 RUN apt-get update && \
 apt-get upgrade -y && \
-apt-get install -y wget sqlite3 libsqlite3-dev supervisor apache2 libapache2-mod-fastcgi php5-fpm php5-cli php5-mysql php5-curl php5-gd php5-intl php5-mcrypt php5-tidy php5-xmlrpc php5-xsl php5-xdebug php-pear && \
+apt-get install -y wget sqlite3 libsqlite3-dev supervisor apache2 apache2-mpm-event libapache2-mod-fastcgi php5-fpm php5-cli php5-mysql php5-curl php5-gd php5-intl php5-mcrypt php5-tidy php5-xmlrpc php5-xsl php5-xdebug php-pear --fix-missing && \
 apt-get remove --purge -y software-properties-common && \
 apt-get autoremove -y && \
 apt-get clean && \
