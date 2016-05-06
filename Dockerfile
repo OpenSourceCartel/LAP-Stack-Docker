@@ -74,11 +74,13 @@ find /etc/php5/cli/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g
 # disable default site
 RUN a2dissite 000-default
 
-# Enable mod_rewrite
-RUN a2enmod rewrite
+# Enable some apache mods
+RUN a2enmod actions fastcgi alias rewrite proxy_fcgi
 
-# Enable the fastCGI proxy for fpm
-RUN a2enmod proxy_fcgi
+# Copy php5-fpm mod conf for apache
+# COPY 
+# RUN sudo a2enconf php5-fpm
+
 
 # Define entry point
 CMD ["/bin/bash"]
