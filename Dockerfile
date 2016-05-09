@@ -66,20 +66,5 @@ sed -i -e "s/pm.min_spare_servers = 1/pm.min_spare_servers = 2/g" /etc/php5/fpm/
 sed -i -e "s/pm.max_spare_servers = 3/pm.max_spare_servers = 4/g" /etc/php5/fpm/pool.d/www.conf && \
 sed -i -e "s/pm.max_requests = 500/pm.max_requests = 200/g" /etc/php5/fpm/pool.d/www.conf && \
 
-# Fix ownership of sock file for php-fpm
-RUN sed -i -e "s/;listen.mode = 0660/listen.mode = 0750/g" /etc/php5/fpm/pool.d/www.conf && \
-find /etc/php5/cli/conf.d/ -name "*.ini" -exec sed -i -re 's/^(\s*)#(.*)/\1;\2/g' {} \;
-
-# disable default site
-RUN a2dissite 000-default
-
-# Enable some apache mods
-RUN a2enmod actions fastcgi alias rewrite proxy_fcgi
-
-# Copy php5-fpm mod conf for apache
-# COPY 
-# RUN sudo a2enconf php5-fpm
-
-
 # Define entry point
 CMD ["/bin/bash"]
