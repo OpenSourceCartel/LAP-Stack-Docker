@@ -36,13 +36,11 @@ rm -rf /usr/share/man/??_*
 #  printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
 
 # Link nodejs env
-RUN ln -s /usr/bin/nodejs /usr/bin/node
+#RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-# Install bower
-RUN npm install -g bower
-
-# Install gulp
-RUN npm install -g gulp
+# Install bower 
+RUN npm install -g bower && \\
+npm install -g grunt-cli
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
