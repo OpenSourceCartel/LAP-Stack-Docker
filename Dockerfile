@@ -4,6 +4,7 @@ MAINTAINER James Kirkby <jkirkby91@gmail.com>
 # enable the multiverse (at least in the multiverse you're more likely not to be sat here doing this ;-)
 RUN sudo apt-add-repository multiverse
 
+# add the node PPA
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
 
 # Install some packages
@@ -19,8 +20,9 @@ rm -rf /var/lib/apt/lists/* && \
 rm -rf /usr/share/man/?? && \
 rm -rf /usr/share/man/??_*
 
+# install npm
 RUN apt-get update && \
-apt-get install npm
+apt-get install -y npm --fix-missing
 
 # Compile node from source
 # RUN \
