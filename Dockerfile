@@ -48,14 +48,14 @@ RUN npm install -g gulp
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Configure Xdebug
-RUN echo "zend_extension=/usr/lib/php5/20121212/xdebug.so" >> /etc/php5/fpm/php.ini
-RUN echo "xdebug.remote_enable = 1" >> /etc/php5/fpm/php.ini
-RUN echo "xdebug.idekey = 'ideStorm'" >> /etc/php5/fpm/php.ini
-RUN echo "xdebug.remote_autostart = 1" >> /etc/php5/fpm/php.ini
-RUN echo "xdebug.remote_connect_back = 1" >> /etc/php5/fpm/php.ini
-RUN echo "xdebug.remote_port = 9000" >> /etc/php5/fpm/php.ini
-RUN echo "xdebug.remote_handler=dbgp" >> /etc/php5/fpm/php.ini
-RUN echo "xdebug.remote_mode=req" >> /etc/php5/fpm/php.ini
+RUN echo "zend_extension=/usr/lib/php5/20121212/xdebug.so" >> /etc/php5/fpm/php.ini && \
+echo "xdebug.remote_enable = 1" >> /etc/php5/fpm/php.ini && \
+echo "xdebug.idekey = 'ideStorm'" >> /etc/php5/fpm/php.ini && \
+echo "xdebug.remote_autostart = 1" >> /etc/php5/fpm/php.ini && \
+echo "xdebug.remote_connect_back = 1" >> /etc/php5/fpm/php.ini && \
+echo "xdebug.remote_port = 9000" >> /etc/php5/fpm/php.ini && \
+echo "xdebug.remote_handler=dbgp" >> /etc/php5/fpm/php.ini && \
+echo "xdebug.remote_mode=req" >> /etc/php5/fpm/php.ini
 
 # set php-fpm configs so it actually works
 RUN sed -i -e "s/;cgi.fix_pathinfo=0/cgi.fix_pathinfo=1/g" /etc/php5/fpm/php.ini && \
