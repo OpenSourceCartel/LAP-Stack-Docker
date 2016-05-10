@@ -20,10 +20,6 @@ rm -rf /var/lib/apt/lists/* && \
 rm -rf /usr/share/man/?? && \
 rm -rf /usr/share/man/??_*
 
-# install npm
-RUN apt-get update && \
-apt-get install -y npm --fix-missing
-
 # Compile node from source
 # RUN \
 #  cd /tmp && \
