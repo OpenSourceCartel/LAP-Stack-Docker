@@ -9,7 +9,7 @@ RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
 # Install some packages
 RUN apt-get update && \
 apt-get upgrade -y && \
-apt-get install -y wget sqlite3 libsqlite3-dev supervisor apache2 apache2-mpm-event libapache2-mod-fastcgi php5-fpm php5-cli php5-mysql php5-curl php5-gd php5-intl php5-mcrypt php5-tidy php5-xmlrpc php5-xsl php5-xdebug php-pear nodejs npm --fix-missing && \
+apt-get install -y build-essential libssl-dev wget sqlite3 libsqlite3-dev supervisor apache2 apache2-mpm-event libapache2-mod-fastcgi php5-fpm php5-cli php5-mysql php5-curl php5-gd php5-intl php5-mcrypt php5-tidy php5-xmlrpc php5-xsl php5-xdebug php-pear nodejs --fix-missing && \
 apt-get remove --purge -y software-properties-common && \
 apt-get autoremove -y && \
 apt-get clean && \
@@ -18,6 +18,9 @@ echo -n > /var/lib/apt/extended_states && \
 rm -rf /var/lib/apt/lists/* && \
 rm -rf /usr/share/man/?? && \
 rm -rf /usr/share/man/??_*
+
+RUN apt-get update && \
+apt-get install npm
 
 # Compile node from source
 # RUN \
