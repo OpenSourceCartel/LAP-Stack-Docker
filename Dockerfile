@@ -20,9 +20,6 @@ rm -rf /var/lib/apt/lists/* && \
 rm -rf /usr/share/man/?? && \
 rm -rf /usr/share/man/??_*
 
-# Link nodejs env
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-
 # Install NVM so we can set a standardised node version
 RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash && \
 bash
