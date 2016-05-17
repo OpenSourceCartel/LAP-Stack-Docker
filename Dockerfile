@@ -1,10 +1,10 @@
 FROM jkirkby91/ubuntusrvbase
 MAINTAINER James Kirkby <jkirkby91@gmail.com>
 
-# enable the multiverse (at least in the multiverse you're more likely not to be sat here doing this ;-)
+# Enable the multiverse (at least in the multiverse you're more likely not to be sat here doing this ;-)
 RUN sudo apt-add-repository multiverse
 
-# add the node PPA
+# Add the node PPA
 RUN curl -sL https://deb.nodesource.com/setup | sudo bash -
 
 # Install some packages
@@ -20,23 +20,12 @@ rm -rf /var/lib/apt/lists/* && \
 rm -rf /usr/share/man/?? && \
 rm -rf /usr/share/man/??_*
 
-# Compile node from source
-# RUN \
-#  cd /tmp && \
-#  wget http://nodejs.org/dist/node-latest.tar.gz && \
-#  tar xvzf node-latest.tar.gz && \
-#  rm -f node-latest.tar.gz && \
-#  cd node-v* && \
-#  ./configure && \
-#  CXX="g++ -Wno-unused-local-typedefs" make && \
-#  CXX="g++ -Wno-unused-local-typedefs" make install && \
-#  cd /tmp && \
-#  rm -rf /tmp/node-v* && \
-#  npm install -g npm && \
-#  printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
-
 # Link nodejs env
-#RUN ln -s /usr/bin/nodejs /usr/bin/node
+RUN ln -s /usr/bin/nodejs /usr/bin/node
+
+# Install NVM so we can set a standardised node version
+RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | bash && \
+bash
 
 # Install bower 
 RUN npm install -g bower && \\
@@ -55,7 +44,7 @@ echo "xdebug.remote_port = 9000" >> /etc/php5/fpm/php.ini && \
 echo "xdebug.remote_handler=dbgp" >> /etc/php5/fpm/php.ini && \
 echo "xdebug.remote_mode=req" >> /etc/php5/fpm/php.ini
 
-# set php-fpm configs so it actually works
+# Set php-fpm configs so it actually works
 RUN sed -i -e "s/;cgi.fix_pathinfo=0/cgi.fix_pathinfo=1/g" /etc/php5/fpm/php.ini && \
 sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php5/fpm/php.ini && \
 sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php5/fpm/php.ini && \
@@ -66,7 +55,7 @@ sed -i -e "s/pm.start_servers = 2/pm.start_servers = 3/g" /etc/php5/fpm/pool.d/w
 sed -i -e "s/pm.min_spare_servers = 1/pm.min_spare_servers = 2/g" /etc/php5/fpm/pool.d/www.conf && \
 sed -i -e "s/pm.max_spare_servers = 3/pm.max_spare_servers = 4/g" /etc/php5/fpm/pool.d/www.conf && \
 sed -i -e "s/pm.max_requests = 500/pm.max_requests = 200/g" /etc/php5/fpm/pool.d/www.conf && \
-echo "security.limit_extensions = .php .html" >> /etc/php5/fpm/pool.d/www.conf
+echo "security.limit_extensions = .php" >> /etc/php5/fpm/pool.d/www.conf
 
 # Define entry point
 CMD ["/bin/bash"]
