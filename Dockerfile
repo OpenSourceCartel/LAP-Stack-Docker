@@ -1,4 +1,4 @@
-FROM jkirkby91/ubuntusrvbase
+FROM jkirkby91/ubuntusrvbase:latest
 MAINTAINER James Kirkby <jkirkby91@gmail.com>
 
 # Enable the multiverse (at least in the multiverse you're more likely not to be sat here doing this ;-)
@@ -25,7 +25,7 @@ RUN curl https://raw.githubusercontent.com/creationix/nvm/v0.11.1/install.sh | b
 bash
 
 # Install bower 
-RUN npm install -g bower && \\
+RUN npm install -g bower && \
 npm install -g grunt-cli
 
 # Install composer
